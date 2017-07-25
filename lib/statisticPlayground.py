@@ -2,6 +2,7 @@ import numpy as np
 import os
 import warnings
 import matplotlib.pyplot as plt
+import matplotlib
 
 warnings.filterwarnings("ignore") #Suppress LDA warning
 
@@ -81,6 +82,7 @@ axes = plt.gca()
 axes.set_xlim([0,0.6])
 plt.show()
 
+matplotlib.rcParams.update({'font.size': 8})
 
 #----Label Based analysis and Graphic Creation
 
@@ -102,6 +104,7 @@ for x in nbaLabels:
 nbaLRatios = [round(x/float(sumNba),2) for x in nbaLCount]
 tempSum = sum(nbaLRatios)
 nbaLRatios = [x/float(tempSum) for x in nbaLRatios]
+
 index = range(0,len(nbaLabels))
 plt.barh(index,nbaLRatios,align='center',alpha=0.5)
 plt.yticks(index,nbaLabels)
