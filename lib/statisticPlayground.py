@@ -39,10 +39,14 @@ nbaRatios = [round(x/float(sumNba),2) for x in nbaCount]
 ncaaRatios = [x/float(sumNcaa) for x in ncaaCount]
 ncaaRatios.extend([None,None])
 
+#--Assume 50% of NBA centers and 10% of NBA PF are NCAA Centers, 50% of NBA
+#--centers, 90% of NBA PF, 65% of NBA SF, and 10% of NBA SG are NCAA Forwards,
+#--and 15% of NBA SF and 35% of NBA SF, 90% of NBA SG, and
+#--all NBA PG are NCAA Guards
 expNcaaRatios = [
-    nbaRatios[0]+.3*nbaRatios[1],
-    .70*nbaRatios[1]+.85*nbaRatios[2],
-    .15*nbaRatios[2] + nbaRatios[3] + nbaRatios[4], None, None
+    .5*nbaRatios[0]+.10*nbaRatios[1],
+    .5*nbaRatios[0]+.9*nbaRatios[1]+.65*nbaRatios[2]+.1*nbaRatios[3],
+    .35*nbaRatios[2] + .9* nbaRatios[3] + nbaRatios[4], None, None
     ]
 data = {
     'Pos':positions,
@@ -102,7 +106,7 @@ for x in nbaLabels:
     nbaLCount.append(len(nbaData[nbaData['labels']==x]))
 
 nbaLRatios = [round(x/float(sumNba),2) for x in nbaLCount]
-tempSum = sum(nbaLRatios)
+tempSum = sum(nbaLRatios) #Correct to sum to 1
 nbaLRatios = [x/float(tempSum) for x in nbaLRatios]
 
 index = range(0,len(nbaLabels))
@@ -125,14 +129,16 @@ ncaaCRatio = expNcaaRatios[0]/ncaaRatios[0]
 ncaaFRatio = expNcaaRatios[1]/ncaaRatios[1]
 ncaaGRatio = expNcaaRatios[2]/ncaaRatios[2]
 
+#--Weighting the player roles (defensive center is more likely to have true
+#--centers, Game Managers are pretty much definitely going to be guards, etc.
 adjNcaaLRatios = [
-    ncaaLRatios[0]*(ncaaCRatio*.60+.40*ncaaFRatio),
-    ncaaLRatios[1]*(ncaaCRatio*.80+.2*ncaaFRatio),
-    ncaaLRatios[2]*ncaaFRatio, ncaaLRatios[3]*(.8*ncaaFRatio + .2*ncaaGRatio),
+    ncaaLRatios[0]*(ncaaCRatio*.70+.30*ncaaFRatio),
+    ncaaLRatios[1]*(ncaaCRatio*.30+.7*ncaaFRatio),
+    ncaaLRatios[2]*ncaaFRatio, ncaaLRatios[3]*(.1*ncaaCRatio + .7*ncaaFRatio + .2*ncaaGRatio),
     ncaaLRatios[4]*(.5*ncaaFRatio + .5*ncaaGRatio),
     ncaaLRatios[5]*(.3*ncaaFRatio + .7*ncaaGRatio), ncaaLRatios[6]*ncaaGRatio
     ]
-tempSum = sum(adjNcaaLRatios)
+tempSum = sum(adjNcaaLRatios) #Correct to sum to 1
 adjNcaaLRatios = [x/tempSum for x in adjNcaaLRatios]
 
 fig, ax = plt.subplots()
@@ -167,14 +173,14 @@ plt.title('NCAA Player Role Ratios')
 plt.show()
 
 #----Find players both in NCAA and NBA
-nbaPlayLabels = nbaData[['Player','labels', 'X1', 'X2']]
+nbaPlayLabels = nbaData[['Player','labels', 'X1', 'X2', 'Pos']]
 bothPlayers = pd.DataFrame.merge(ncaaData,nbaPlayLabels, on=['Player'], how='inner')
 classifier = GaussianNB()
 print(bothPlayers.head())
-X = bothPlayers.drop(['Player', 'labels_y','X1_y','X2_y',
+X = bothPlayers.drop(['Player', 'labels_y','X1_y','X2_y', 'Pos_y',
                       'Status', 'G', 'MP', 'School',
                       'PER','OWS','DWS','WS','WS/40','BPM'], axis=1)
-X['Pos'] = X['Pos'].map({'Center':5,
+X['Pos_x'] = X['Pos_x'].map({'Center':5,
                          'Center-Forward':4,
                          'Forward-Center':4,
                          'Forward':3,
