@@ -99,4 +99,4 @@ df['labels'] = df['labels'].map({0: 'Versatile Forward',
 #---- Write the results to a csv
 path = os.path.normpath(str(os.getcwd()).split('lib')[0]+'data/nba_positions.csv')
 
-df.to_csv(path)
+#df.to_csv(path)

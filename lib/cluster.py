@@ -61,7 +61,7 @@ def feature_importance(cluster_data, league_data, num_feats):
     PCA_reduced_df = pca.fit_transform(scaled_data)
 
     features = pd.DataFrame(list(zip(cluster_data.columns, pca.components_[0], np.mean(cluster_data), np.mean(league_data))),
-        columns=['Feature', 'Importance', 'Cluster Average', 'League Average']).sort_values('Importance', ascending=True).head(10)
+        columns=['Feature', 'Importance', 'Cluster Average', 'League Average']).sort_values('Importance', ascending=True).head(num_feats)
 
     return features
 
