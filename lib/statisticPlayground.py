@@ -22,7 +22,7 @@ ncaaData = pd.read_csv(path, engine='python')
 ncaaData = ncaaData[ncaaData['G']>15]
 
 #----Position Based Analysis and Graphic Creation
-positions = ['C','PF','SF','PG','SF']
+positions = ['C','PF','SF','PG','SG']
 ncaaPos = ['Center', 'Forward', 'Guard']
 
 nbaCount = []
@@ -208,13 +208,13 @@ draftClass = ['Markelle Fultz', 'Lonzo Ball', 'Jayson Tatum',
               'Josh Jackson', "De'Aaron Fox", 'Jonathan Isaac',
               'Lauri Markkanen', 'Dennis Smith Jr.', 'Zach Collins',
               'Malik Monk', 'Luke Kennard', 'Donovan Mitchell',
-              'Bam Adebayo', 'Justin Jackson', 'Justin Patton',
+              'Edrice Adebayo', 'Justin Jackson', 'Justin Patton',
               'D.J. Wilson', 'T.J. Leaf', 'John Collins',
               'Harry Giles', 'Jarrett Allen', 'OG Anunoby',
               'Tyler Lydon', 'Caleb Swanigan', 'Kyle Kuzma',
               'Tony Bradley', 'Derrick White', 'Josh Hart',
               'Frank Jackson', 'Davon Reed', 'Wesley Iwundu',
-              'Frank Mason III', 'Ivan Rabb', 'semi Ojeleye',
+              'Frank Mason III', 'Ivan Rabb', 'Semi Ojeleye',
               'Jordan Bell', 'Jawun Evans', 'Dwayne Bacon',
               'Tyler Dorsey', 'Thomas Bryant', 'Damyean Dotson',
               'Dillon Brooks', 'Sterling Brown', 'Ike Anigbogu',
