@@ -11,6 +11,11 @@ Efforts are currently focused on career stats and roles but things change yearly
 - Scrape NBA Line-up Data
 - Scrape NBA Game Data
 
+# Publications
+
+A brief write up of the first portion of this project can be found at:
+https://perpetualrambler.wordpress.com/2017/07/26/rethinking-basketball-positions-with-machine-learning/
+
 # Miscellaneous
 
 If anyone wants to get involved on this project and help with some of the modeling feel free to shoot me a message or make a comment. This project is my entry to the world of data science and machine learning so it's going to be slow moving while I get a better understanding of how and when to use the models in the varying capacities that I'm trying to use them in. Specifically, parsing through game data to determine line-up strengths and weaknesses is going to be the bottleneck for me as far as I can tell, so if you have ideas or recommendations, please let me know.
